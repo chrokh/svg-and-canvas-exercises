@@ -70,10 +70,12 @@
 
 
   var Pattern = function(){
+    var numRects = 4,
+        numCircs = 1;
     this._shapes = [Rect.newBackground()];
-    for(var r=0; r<3; r++)
+    for(var r=0; r<numRects; r++)
       this._shapes.push(new Rect());
-    for(var r=0; r<1; r++)
+    for(var r=0; r<numCircs; r++)
       this._shapes.push(new Circle());
   }
   Pattern.prototype.toSvg = function(){
