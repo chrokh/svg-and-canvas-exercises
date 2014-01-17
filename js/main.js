@@ -95,6 +95,7 @@
   }
   Rand.Rotation = {};
   Rand.Rotation.next = function(){
+    if(Rand.next(0,100) < 50) return;
     var rotationStep = 45;
     var steps = 360 / rotationStep;
     var  n = Rand.next(1, steps);
