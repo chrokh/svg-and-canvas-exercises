@@ -3,13 +3,15 @@
   var Circle = function(){
     this.x        = Circle.Position.next();
     this.y        = Circle.Position.next();
-    this.radius    = Circle.Size.next();
+    this.radius   = Circle.Size.next();
+    this.color    = Rand.Color.next();
   }
   Circle.prototype.toSvg = function(){
     return Xml.createTag('circle', {
       cx: this.x,
       cy: this.y,
-      r: this.radius
+      r: this.radius,
+      fill: this.color
     });
   }
   Circle.Position = {};
@@ -30,13 +32,15 @@
     this.width = Rect.Size.next();
     this.height = Rect.Size.next();
     this.rotation = Rand.Rotation.next();
+    this.color    = Rand.Color.next();
   }
   Rect.prototype.toSvg = function(){
     return Xml.createTag('rect', {
       x: this.x,
       y: this.y,
       width: this.width,
-      height: this.height
+      height: this.height,
+      fill: this.color
     });
   }
   Rect.Position = {};
@@ -73,9 +77,6 @@
   }
 
 
-  var Color = {};
-
-
   var Rand = {};
   Rand.next = function(min, max){
     return Math.floor((Math.random()*max)+min);
@@ -86,6 +87,13 @@
     var steps = 360 / rotationStep;
     var  n = Rand.next(1, steps);
     return n * rotationStep;
+  }
+  Rand.Color = {};
+  Rand.Color.next = function(){
+    var r = Rand.next(0, 255),
+        g = Rand.next(0, 255),
+        b = Rand.next(0, 255);
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
   }
 
 
