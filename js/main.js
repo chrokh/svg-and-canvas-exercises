@@ -77,7 +77,7 @@
       this._shapes.push(new Circle());
   }
   Pattern.prototype.toSvg = function(){
-    var svg = '<svg>';
+    var svg = '<svg width="'+Boundries.width+'" height="'+Boundries.height+'">';
     for(var s=0; s<this._shapes.length; s++)
       svg += this._shapes[s].toSvg();
     return svg + '</svg>';
