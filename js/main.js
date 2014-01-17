@@ -102,7 +102,7 @@
   App.init = function(){
     $('#generate').click(function(e){
       var pattern = new Pattern().toSvg();
-      $('body').append(pattern);
+      $('#patterns').prepend(pattern);
       e.preventDefault();
     });
   }
