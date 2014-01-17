@@ -18,6 +18,21 @@
 
 
   var Rect = function(){
+    this.x = Rect.Position.next();
+    this.y = Rect.Position.next();
+    this.width = Rect.Size.next();
+    this.height = Rect.Size.next();
+    this.rotation = Rand.Rotation.next();
+  }
+  Rect.Position = {};
+  Rect.Position.next = function(){
+    var n = Rand.next(0, Boundries.steps - 1);
+    return n * Boundries.stepSize;
+  }
+  Rect.Size = {};
+  Rect.Size.next = function(){
+    var n = Rand.next(1, Boundries.steps)
+    return n * Boundries.stepSize;
   }
 
 
@@ -39,8 +54,15 @@
   Rand.next = function(min, max){
     return Math.floor((Math.random()*max)+min);
   }
+  Rand.Rotation = {};
+  Rand.Rotation.next = function(){
+    var rotationStep = 45;
+    var steps = 360 / rotationStep;
+    var  n = Rand.next(1, steps);
+    return n * rotationStep;
+  }
 
 
-  var foo = new Circle();
+  var foo = new Rect();
   console.log(foo);
 })();
