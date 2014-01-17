@@ -1,5 +1,9 @@
 (function(){
 
+  var nil = function(val){
+    return typeof val === 'undefined';
+  }
+
   var Circle = function(){
     this.x        = Circle.Position.next();
     this.y        = Circle.Position.next();
@@ -26,12 +30,12 @@
   }
 
 
-  var Rect = function(){
-    this.x = Rect.Position.next();
-    this.y = Rect.Position.next();
-    this.width = Rect.Size.next();
-    this.height = Rect.Size.next();
-    this.rotation = Rand.Rotation.next();
+  var Rect = function(x, y, width, height, rotation){
+    this.x = nil(x) ? Rect.Position.next() : x;
+    this.y = nil(y) ? Rect.Position.next() : y;
+    this.width = nil(width) ? Rect.Position.next() : width;
+    this.height = nil(height) ? Rect.Position.next() : height;
+    this.rotation = nil(rotation) ? Rand.Rotation.next() : rotation;
     this.color    = Rand.Color.next();
   }
   Rect.prototype.toSvg = function(){
@@ -53,17 +57,20 @@
     var n = Rand.next(1, Boundries.steps)
     return n * Boundries.stepSize;
   }
+  Rect.newBackground = function(){
+    return new Rect(0, 0, Boundries.width, Boundries.height, 0);
+  }
 
 
   var Boundries = {};
   Boundries.width = 300;
-  Boundries.heigth = Boundries.width;
+  Boundries.height = Boundries.width;
   Boundries.steps = 4;
   Boundries.stepSize = Boundries.width / Boundries.steps;
 
 
   var Pattern = function(){
-    this._shapes = [];
+    this._shapes = [Rect.newBackground()];
     for(var r=0; r<3; r++)
       this._shapes.push(new Rect());
     for(var r=0; r<1; r++)
