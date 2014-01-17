@@ -98,6 +98,15 @@
   }
 
 
-  var foo = new Pattern().toSvg();
-  console.log(foo);
+  var App = {};
+  App.init = function(){
+    $('#generate').click(function(e){
+      var pattern = new Pattern().toSvg();
+      $('body').append(pattern);
+      e.preventDefault();
+    });
+  }
+
+
+  App.init();
 })();
