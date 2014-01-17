@@ -39,12 +39,15 @@
     this.color    = Rand.Color.next();
   }
   Rect.prototype.toSvg = function(){
+    var centerX = this.x + this.width / 2,
+        centerY = this.y + this.height / 2;
     return Xml.createTag('rect', {
       x: this.x,
       y: this.y,
       width: this.width,
       height: this.height,
-      fill: this.color
+      fill: this.color,
+      transform: 'rotate('+this.rotation+','+centerX+','+centerY+')'
     });
   }
   Rect.Position = {};
