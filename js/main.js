@@ -121,10 +121,26 @@
   }
   Rand.Color = {};
   Rand.Color.next = function(){
-    var r = Rand.next(0, 255),
-        g = Rand.next(0, 255),
-        b = Rand.next(0, 255);
-    return 'rgb(' + r + ',' + g + ',' + b + ')';
+    var color = new Color(
+        Rand.next(0, 255),
+        Rand.next(0, 255),
+        Rand.next(0, 255));
+    return color.toString();
+  }
+
+
+  var Color = function(r, g, b){
+    this.r = r;
+    this.g = g;
+    this.b = b;
+  }
+  Color.prototype.proximityTo = function(color){
+    return Math.abs(this.r - color.r)
+      + Math.abs(this.g - color.g)
+      + Math.abs(this.b - color.b);
+  }
+  Color.prototype.toString = function(){
+    return 'rgb(' + this.r + ',' + this.g + ',' + this.b + ')';
   }
 
 
