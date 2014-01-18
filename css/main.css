@@ -1,0 +1,11 @@
+body{
+  text-align: center;
+}
+
+#generate{
+  margin-bottom: 23px;
+}
+
+#patterns svg{
+  margin: 12px;
+}
