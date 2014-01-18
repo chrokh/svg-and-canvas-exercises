@@ -160,6 +160,8 @@
   var App = {};
   App.init = function(){
     $('#generate').click(App.generate);
+    for(var n=0; n<6; n++)
+      App.generate();
   }
   App.generate = function(){
     var pattern = new Pattern().toSvg();
