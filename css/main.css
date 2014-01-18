@@ -6,6 +6,6 @@ body{
   margin-bottom: 23px;
 }
 
-#patterns svg{
+#patterns canvas{
   margin: 12px;
 }
