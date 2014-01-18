@@ -159,24 +159,25 @@
 
   var App = {};
   App.init = function(){
-    $('#generate').click(function(e){
-      var pattern = new Pattern().toSvg();
-      var $canvas = $('<canvas/>');
+    $('#generate').click(App.generate);
+  }
+  App.generate = function(){
+    var pattern = new Pattern().toSvg();
+    var $canvas = $('<canvas/>');
 
-      canvg($canvas[0], pattern);
+    canvg($canvas[0], pattern);
 
-      var imgData = $canvas[0].toDataURL('image/png');
+    var imgData = $canvas[0].toDataURL('image/png');
 
-      var $img = $('<img/>');
-      $img.attr('src', imgData);
+    var $img = $('<img/>');
+    $img.attr('src', imgData);
 
-      var $a = $('<a/>');
-      $a.append($img);
-      $a.attr('href', imgData);
+    var $a = $('<a/>');
+    $a.append($img);
+    $a.attr('href', imgData);
 
-      $('#patterns').prepend($a);
-      e.preventDefault();
-    });
+    $('#patterns').prepend($a);
+    return false;
   }
 
 
