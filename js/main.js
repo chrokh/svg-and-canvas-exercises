@@ -134,11 +134,6 @@
     this.g = g;
     this.b = b;
   }
-  Color.prototype.proximityTo = function(color){
-    return Math.abs(this.r - color.r)
-      + Math.abs(this.g - color.g)
-      + Math.abs(this.b - color.b);
-  }
   Color.prototype.toString = function(){
     return 'rgb(' + this.r + ',' + this.g + ',' + this.b + ')';
   }
