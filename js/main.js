@@ -25,7 +25,7 @@
   }
   Circle.Size = {};
   Circle.Size.next = function(){
-    var n = Rand.next(1, Boundries.steps);
+    var n = Rand.next(1, Boundries.steps - 1);
     return n * Boundries.stepSize / 2;
   }
 
@@ -35,7 +35,10 @@
     this.y = nil(y) ? Rect.Position.next() : y;
     this.width = nil(width) ? Rect.Position.next() : width;
     this.height = nil(height) ? Rect.Position.next() : height;
-    this.rotation = nil(rotation) ? Rand.Rotation.next() : rotation;
+    if(this.width == this.height)
+      this.rotation = nil(rotation) ? Rand.Rotation.next() : rotation;
+    else
+      this.rotation = 0;
     this.color    = Rand.Color.next();
   }
   Rect.prototype.toSvg = function(){
@@ -72,20 +75,35 @@
   Boundries.stepSize = Boundries.width / Boundries.steps;
 
 
-  var Pattern = function(){
+  var ComplexShape = function(){
+    this._shapes = [];
+    var numRects = 3,
+        numCircs = 1,
+        color = Rand.Color.next();
+    for(var r=0; r<8; r++){
+      var rect = new Rect();
+      rect.color = color;
+      this._shapes.push(rect);
+    }
+    for(var r=0; r<numCircs; r++){
+      var c = new Circle()
+      c.color = color;
+      this._shapes.push(c);
+    }
+  }
+  ComplexShape.prototype.toSvg = function(){
+    return Svg.fromShapes(this._shapes);
+  }
+
+  var Pattern = function(shapes){
     var numRects = 4,
         numCircs = 1;
     this._shapes = [Rect.newBackground()];
-    for(var r=0; r<numRects; r++)
-      this._shapes.push(new Rect());
-    for(var r=0; r<numCircs; r++)
-      this._shapes.push(new Circle());
+    for(var n=0; n<3; n++)
+      this._shapes.push(new ComplexShape());
   }
   Pattern.prototype.toSvg = function(){
-    var svg = '<svg width="'+Boundries.width+'" height="'+Boundries.height+'">';
-    for(var s=0; s<this._shapes.length; s++)
-      svg += this._shapes[s].toSvg();
-    return svg + '</svg>';
+    return Svg.fromShapes(this._shapes);
   }
 
 
@@ -116,6 +134,15 @@
     for(var prop in props)
       tag += ' ' + prop + '="' + props[prop] + '"';
     return tag + '/>'
+  }
+
+
+  var Svg = {};
+  Svg.fromShapes = function(shapes){
+    var svg = '<svg width="'+Boundries.width+'" height="'+Boundries.height+'">';
+    for(var s=0; s<shapes.length; s++)
+      svg += shapes[s].toSvg();
+    return svg + '</svg>';
   }
 
 
