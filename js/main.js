@@ -162,11 +162,19 @@
     $('#generate').click(function(e){
       var pattern = new Pattern().toSvg();
       var $canvas = $('<canvas/>');
-      $canvas.click(function(){
-        window.location = $(this)[0].toDataURL('image/png');
-      });
+
       canvg($canvas[0], pattern);
-      $('#patterns').prepend($canvas);
+
+      var imgData = $canvas[0].toDataURL('image/png');
+
+      var $img = $('<img/>');
+      $img.attr('src', imgData);
+
+      var $a = $('<a/>');
+      $a.append($img);
+      $a.attr('href', imgData);
+
+      $('#patterns').prepend($a);
       e.preventDefault();
     });
   }
