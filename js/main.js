@@ -161,8 +161,11 @@
   App.init = function(){
     $('#generate').click(function(e){
       var pattern = new Pattern().toSvg();
-      var $canvas = $('<canvas/>')[0];
-      canvg($canvas, pattern);
+      var $canvas = $('<canvas/>');
+      $canvas.click(function(){
+        window.location = $(this)[0].toDataURL('image/png');
+      });
+      canvg($canvas[0], pattern);
       $('#patterns').prepend($canvas);
       e.preventDefault();
     });
