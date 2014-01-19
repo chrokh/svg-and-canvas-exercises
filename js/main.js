@@ -130,7 +130,6 @@
     }
   }
   Grid.prototype.toSvg = function(){
-    console.log(this);
     var xml = '';
     for(var s=0; s<this._shapes.length; s++)
       xml += this._shapes[s].toSvg();
@@ -214,7 +213,6 @@
   }
   App.generate = function(){
     var showGrid = $('input').is(':checked');
-    console.log(showGrid);
     var pattern = new Pattern(showGrid).toSvg();
     var $canvas = $('<canvas/>');
 
