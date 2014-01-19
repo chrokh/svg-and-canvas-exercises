@@ -138,13 +138,14 @@
   }
 
 
-  var Pattern = function(shapes){
+  var Pattern = function(showGrid){
     var numRects = 4,
         numCircs = 1;
     this._shapes = [Rect.newBackground()];
     for(var n=0; n<3; n++)
       this._shapes.push(new ComplexShape());
-    this._shapes.push(new Grid());
+    if(showGrid)
+      this._shapes.push(new Grid());
   }
   Pattern.prototype.toSvg = function(){
     return Svg.fromShapes(this._shapes);
@@ -212,7 +213,9 @@
       App.generate();
   }
   App.generate = function(){
-    var pattern = new Pattern().toSvg();
+    var showGrid = $('input').is(':checked');
+    console.log(showGrid);
+    var pattern = new Pattern(showGrid).toSvg();
     var $canvas = $('<canvas/>');
 
     canvg($canvas[0], pattern);
