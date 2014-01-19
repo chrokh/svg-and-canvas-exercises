@@ -95,12 +95,56 @@
     return Svg.fromShapes(this._shapes);
   }
 
+
+  var Line = function(x1, y1, x2, y2){
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
+    this.color = new Color(0,0,0,0.3);
+    this.width = 1;
+  }
+  Line.prototype.toSvg = function(){
+    return Xml.createTag('line', {
+      x1: this.x1,
+      y1: this.y1,
+      x2: this.x2,
+      y2: this.y2,
+      stroke: this.color,
+      'stroke-width': this.width
+    });
+  }
+
+
+  var Grid = function(){
+    this._shapes = [];
+    for(var col=0; col<=Boundries.steps; col++){
+      var x1, x2;
+      x1 = x2 = col * Boundries.stepSize;
+      this._shapes.push(new Line(x1, 0, x2, Boundries.height));
+    }
+    for(var row=0; row<=Boundries.steps; row++){
+      var y1, y2;
+      y1 = y2 = row * Boundries.stepSize;
+      this._shapes.push(new Line(0, y1, Boundries.width, y2));
+    }
+  }
+  Grid.prototype.toSvg = function(){
+    console.log(this);
+    var xml = '';
+    for(var s=0; s<this._shapes.length; s++)
+      xml += this._shapes[s].toSvg();
+    return xml;
+  }
+
+
   var Pattern = function(shapes){
     var numRects = 4,
         numCircs = 1;
     this._shapes = [Rect.newBackground()];
     for(var n=0; n<3; n++)
       this._shapes.push(new ComplexShape());
+    this._shapes.push(new Grid());
   }
   Pattern.prototype.toSvg = function(){
     return Svg.fromShapes(this._shapes);
@@ -129,13 +173,17 @@
   }
 
 
-  var Color = function(r, g, b){
+  var Color = function(r, g, b, a){
     this.r = r;
     this.g = g;
     this.b = b;
+    this.a = (typeof a === 'undefined') ? 1 : a;
   }
   Color.prototype.toString = function(){
-    return 'rgb(' + this.r + ',' + this.g + ',' + this.b + ')';
+    if(this.a == 1)
+      return 'rgb(' + this.r + ',' + this.g + ',' + this.b + ')';
+    else
+      return 'rgba(' + this.r + ',' + this.g + ',' + this.b + ',' + this.a + ')';
   }
 
 
