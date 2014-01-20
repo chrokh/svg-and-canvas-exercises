@@ -141,7 +141,7 @@
     var numRects = 4,
         numCircs = 1;
     this._shapes = [Rect.newBackground()];
-    for(var n=0; n<3; n++)
+    for(var n=0; n<2; n++)
       this._shapes.push(new ComplexShape());
     if(showGrid)
       this._shapes.push(new Grid());
