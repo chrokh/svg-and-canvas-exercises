@@ -69,7 +69,7 @@
 
 
   var Boundries = {};
-  Boundries.width = 300;
+  Boundries.width = 400;
   Boundries.height = Boundries.width;
   Boundries.steps = 4;
   Boundries.stepSize = Boundries.width / Boundries.steps;
