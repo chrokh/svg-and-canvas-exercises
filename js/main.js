@@ -118,14 +118,14 @@
 
   var Grid = function(){
     this._shapes = [];
-    for(var col=0; col<=Boundries.steps; col++){
+    for(var col=0; col<=Boundries.steps * 2; col++){
       var x1, x2;
-      x1 = x2 = col * Boundries.stepSize;
+      x1 = x2 = col * Boundries.stepSize / 2;
       this._shapes.push(new Line(x1, 0, x2, Boundries.height));
     }
-    for(var row=0; row<=Boundries.steps; row++){
+    for(var row=0; row<=Boundries.steps * 2; row++){
       var y1, y2;
-      y1 = y2 = row * Boundries.stepSize;
+      y1 = y2 = row * Boundries.stepSize / 2;
       this._shapes.push(new Line(0, y1, Boundries.width, y2));
     }
   }
